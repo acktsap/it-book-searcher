@@ -1,0 +1,6 @@
+rootProject.name = 'it-book-searcher'
+
+include ':it-book-assembly'
+include ':it-book-common'
+include ':it-book-indexer'
+include ':it-book-search-server'

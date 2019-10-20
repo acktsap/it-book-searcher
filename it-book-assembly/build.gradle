@@ -1,0 +1,18 @@
+apply plugin: 'distribution'
+
+dependencies {
+  implementation project(':it-book-indexer')
+  implementation project(':it-book-search-server')
+}
+
+distributions {
+  main {
+    baseName = rootProject.name
+    contents {
+      from {'src/assembly'}
+      into('lib') {
+        from (project.configurations.runtimeClasspath)
+      }
+    }
+  }
+}
