@@ -19,7 +19,7 @@ readonly APP_DOC="$APP_HOME/doc"
 
 # jar files
 readonly JARS=$(find "$APP_LIB" -name '*.jar' | tr '\n' ':')
-readonly MAIN_CLASS="acktsap.books.SearchServerApplication"
+readonly MAIN_CLASS="acktsap.books.SearchServerLauncher"
 readonly LOG_FILE="search-server-logger.xml"
 
 # run

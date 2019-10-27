@@ -2,5 +2,7 @@ dependencies {
   implementation project(":it-book-common")
 
   implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+  implementation "org.elasticsearch.client:elasticsearch-rest-high-level-client:${elasticsearchClientVersion}"
+
   testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 }
