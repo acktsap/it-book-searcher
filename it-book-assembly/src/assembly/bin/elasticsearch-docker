@@ -16,12 +16,12 @@ readonly APP_BIN="$APP_HOME/bin"
 readonly APP_LIB="$APP_HOME/lib"
 readonly APP_CONF="$APP_HOME/conf"
 
-# Container config
-readonly CONTAINER_NAME="elasticsearch"
-readonly ES_DATA="$SCRIPT_HOME/data"
+# Elasticsearch configs
+export ES_VERSION=${ES_VERSION:-7.4.2}
+export ES_JAVA_OPTS=${ES_JAVA_OPTS:-"-Xms512m -Xmx512m"}
+export ES1_PORT=${ES1_PORT:-9200}
+export KIBANA_PORT=${KIBANA_PORT:-5601}
+export DATA_HOME=${DATA_HOME:-$APP_BIN}
 
-EXISTING_CONTAINER=$(docker ps -aq -f name=${CONTAINER_NAME})
-if [ ! -z ${EXISTING_CONTAINER} ]; then
-  docker stop ${EXISTING_CONTAINER} | xargs docker rm
-  rm -rf ${ES_DATA}
-fi
+readonly COMMAND="docker-compose -f $APP_CONF/es-docker-compose.yml"
+${COMMAND} "$@"

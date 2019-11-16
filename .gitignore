@@ -11,3 +11,4 @@ bin/
 
 # assembly
 !/*assembly/src/assembly/bin/
+data*

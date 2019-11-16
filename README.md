@@ -25,8 +25,10 @@ Using [National Library of Korea api](https://www.nl.go.kr/nl/service/open/api_u
 - Install : `tar -xvf it-book-searcher-x.x.tar` or `unzip it-book-searcher-x.x.zip` 
 - Run
   - ElasticSearch
-    - Start:`./bin/start-elasticsearch`
-    - Stop:`./bin/stop-elasticsearch`
-    - Remove:`./bin/remove-elasticsearch`
+    - Create:`./bin/elasticsearch-docker up --no-start`
+    - Start:`./bin/elasticsearch-docker start`
+    - Check:`./bin/elasticsearch-docker ps` (kibina: http://localhost:5601/)
+    - Stop:`./bin/elasticsearch-docker stop`
+    - Remove:`./bin/elasticsearch-docker rm`
   - Indexer :`./bin/indexer`
   - Searcher :`./bin/search-server`
