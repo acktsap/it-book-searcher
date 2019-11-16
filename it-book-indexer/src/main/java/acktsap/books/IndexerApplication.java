@@ -1,3 +1,7 @@
+/*
+ * @copyright defined in LICENSE.txt
+ */
+
 package acktsap.books;
 
 import org.springframework.boot.SpringApplication;
