@@ -7,7 +7,7 @@ package acktsap.books.nl.internal;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import acktsap.books.model.PageInfo;
-import acktsap.books.model.RawBookInformation;
+import acktsap.books.model.RawBook;
 import acktsap.books.nl.NationalLibraryClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -34,7 +34,7 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
 
   protected final Logger logger = getLogger(getClass());
 
-  protected final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+  protected final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
   protected final RestTemplate restTemplate = new RestTemplate();
 
@@ -62,7 +62,7 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
   }
 
   @Override
-  public List<RawBookInformation> fetchByStartDateAndEndDate(final int pageNum, final int pageSize,
+  public List<RawBook> fetchByStartDateAndEndDate(final int pageNum, final int pageSize,
       final LocalDate startDate, final LocalDate endDate) {
     try {
       assert 0 < pageNum;
@@ -99,8 +99,8 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
         .queryParam("result_style", resultStyle)
         .queryParam("page_no", Integer.toString(pageNum))
         .queryParam("page_size", Integer.toString(pageSize))
-        .queryParam("start_publish_date", startDate.format(timeFormatter))
-        .queryParam("end_publish_date", endDate.format(timeFormatter))
+        .queryParam("start_publish_date", startDate.format(dateTimeFormatter))
+        .queryParam("end_publish_date", endDate.format(dateTimeFormatter))
         .build();
     return uriComponents.encode().toUri();
   }

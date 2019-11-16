@@ -1,7 +1,8 @@
 elasticsearch:
   host: localhost
   port: 9200
-  clusterName: book-cluster
+  scheme: http
+  index: _book
 
 spring:
   application:

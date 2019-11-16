@@ -1,7 +1,7 @@
-package acktsap.books.configutation;
+package acktsap.books.config;
 
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class BooksConfiguration {
+public class BooksConfig {
 }

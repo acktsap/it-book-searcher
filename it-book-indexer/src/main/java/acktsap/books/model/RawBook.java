@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RawBookInformation {
+public class RawBook {
 
   // 표제
   @JsonProperty("TITLE")

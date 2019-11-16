@@ -2,7 +2,7 @@
  * @copyright defined in LICENSE.txt
  */
 
-package acktsap.books.configuration;
+package acktsap.books.config;
 
 import acktsap.books.nl.NationalLibraryClient;
 import acktsap.books.nl.NationalLibraryClientFactory;

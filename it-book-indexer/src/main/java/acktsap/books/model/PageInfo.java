@@ -18,6 +18,6 @@ public class PageInfo {
   protected int totalCount;
 
   @JsonProperty("docs")
-  protected List<RawBookInformation> rawBookInformations;
+  protected List<RawBook> rawBookInformations;
 
 }
