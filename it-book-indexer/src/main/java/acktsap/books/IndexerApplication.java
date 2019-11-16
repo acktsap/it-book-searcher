@@ -1,4 +1,4 @@
-/**
+/*
  * @copyright defined in LICENSE.txt
  */
 

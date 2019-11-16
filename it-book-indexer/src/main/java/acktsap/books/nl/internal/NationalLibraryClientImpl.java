@@ -47,7 +47,7 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
   protected final String resultStyle = "json";
 
   @Override
-  public int fetchItemCount(final LocalDate startDate,
+  public int getBookCount(final LocalDate startDate,
       final LocalDate endDate) {
     try {
       assert null != startDate;
@@ -62,7 +62,7 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
   }
 
   @Override
-  public List<RawBook> fetchByStartDateAndEndDate(final int pageNum, final int pageSize,
+  public List<RawBook> listBookByStartDateAndEndDate(final int pageNum, final int pageSize,
       final LocalDate startDate, final LocalDate endDate) {
     try {
       assert 0 < pageNum;

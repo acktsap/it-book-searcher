@@ -8,5 +8,5 @@
   <root level="INFO">
     <appender-ref ref="STDOUT" />
   </root>
-  <logger name="acktsap.books" level="debug"/>
+  <logger name="acktsap.books" level="info"/>
 </configuration>

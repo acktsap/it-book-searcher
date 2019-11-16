@@ -10,23 +10,24 @@ import java.util.List;
 
 public interface NationalLibraryClient {
 
-  int fetchItemCount(LocalDate startDate, LocalDate endDate);
+  int getBookCount(LocalDate startDate, LocalDate endDate);
 
-  default List<RawBook> fetch(final int pageNum, final int pageSize) {
-    return fetchByStartDateAndEndDate(pageNum, pageSize, LocalDate.ofEpochDay(0), LocalDate.now());
+  default List<RawBook> listBook(final int pageNum, final int pageSize) {
+    return listBookByStartDateAndEndDate(pageNum, pageSize, LocalDate.ofEpochDay(0),
+        LocalDate.now());
   }
 
-  default List<RawBook> fetchByStartDate(final int pageNum, final int pageSize,
+  default List<RawBook> listBookByStartDate(final int pageNum, final int pageSize,
       final LocalDate startDate) {
-    return fetchByStartDateAndEndDate(pageNum, pageSize, startDate, LocalDate.now());
+    return listBookByStartDateAndEndDate(pageNum, pageSize, startDate, LocalDate.now());
   }
 
-  default List<RawBook> fetchByEndDate(final int pageNum, final int pageSize,
+  default List<RawBook> getBookByEndDate(final int pageNum, final int pageSize,
       final LocalDate endDate) {
-    return fetchByStartDateAndEndDate(pageNum, pageSize, LocalDate.ofEpochDay(0), endDate);
+    return listBookByStartDateAndEndDate(pageNum, pageSize, LocalDate.ofEpochDay(0), endDate);
   }
 
-  List<RawBook> fetchByStartDateAndEndDate(int pageNum, int pageSize,
+  List<RawBook> listBookByStartDateAndEndDate(int pageNum, int pageSize,
       LocalDate startDate, LocalDate endDate);
 
 }

@@ -27,12 +27,15 @@ public class BookConverter implements ModelConverter<RawBook, EsBook> {
   public EsBook convertToEsModel(final RawBook rawBook) {
     try {
       logger.trace("Raw book to convert: {}", rawBook);
+      // if isbn is empty, use set isbn
+      final String isbn =
+          rawBook.getIsbn().trim().isEmpty() ? rawBook.getSetIsbn() : rawBook.getIsbn();
       final EsBook converted = EsBook.newBuilder()
           .title(rawBook.getTitle())
           .author(rawBook.getAuthor())
           .publisher(rawBook.getPublisher())
           .publishDate(LocalDate.parse(rawBook.getPublishPredate(), dateTimeFormatter))
-          .isbn(rawBook.getIsbn())
+          .isbn(isbn)
           .build();
       logger.trace("Convertd book: {}", converted);
       return converted;
