@@ -56,16 +56,15 @@ public class BatchQuartzJobBridge extends QuartzJobBean {
 
       final LocalDate now = LocalDate.now();
       final LocalDate before = now.minusMonths(3);
-      final int itemCount =
-          nationalLibraryClient.getBookCount(LocalDate.ofYearDay(2019, 1), LocalDate.now());
+      final int itemCount = nationalLibraryClient.getBookCount(before, now);
       logger.info("Item count: {}", itemCount);
 
       final int pageSize = 1000;
-      final int maxPageNum = itemCount / 1000 + 1;
+      final int maxPageNum = itemCount / pageSize + 1;
       IntStream.range(1, maxPageNum + 1).forEach(i -> {
         logger.info("Processing page {} of {}", i, maxPageNum);
         final List<RawBook> rawBooks =
-            this.nationalLibraryClient.listBookByStartDateAndEndDate(i, pageSize, before, now);
+            this.nationalLibraryClient.listBooksByStartDateAndEndDate(i, pageSize, before, now);
         final List<EsBook> esBooks = rawBooks.stream()
             .map(this.bookConverter::convertToEsModel)
             .filter(b -> !b.getIsbn().isEmpty())

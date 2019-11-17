@@ -62,7 +62,7 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
   }
 
   @Override
-  public List<RawBook> listBookByStartDateAndEndDate(final int pageNum, final int pageSize,
+  public List<RawBook> listBooksByStartDateAndEndDate(final int pageNum, final int pageSize,
       final LocalDate startDate, final LocalDate endDate) {
     try {
       assert 0 < pageNum;
@@ -81,7 +81,7 @@ public class NationalLibraryClientImpl implements NationalLibraryClient {
   private PageInfo request(final int pageNum, final int pageSize, final LocalDate startDate,
       final LocalDate endDate) throws JsonProcessingException, JsonMappingException {
     final URI requestUri = createRequestUri(pageNum, pageSize, startDate, endDate);
-    logger.debug("Request params: {}", requestUri);
+    logger.debug("Request: {}", requestUri);
 
     final ResponseEntity<String> response =
         this.restTemplate.getForEntity(requestUri, String.class);

@@ -17,8 +17,6 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.slf4j.Logger;
 import org.springframework.batch.core.configuration.JobLocator;
-import org.springframework.batch.core.configuration.JobRegistry;
-import org.springframework.batch.core.configuration.support.JobRegistryBeanPostProcessor;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -42,21 +40,24 @@ public class QuartzConfig {
   protected final NationalLibraryClient nationalLibraryClient;
   protected final BookRepository bookRepository;
 
+  /**
+   * SpringBeanJobFactory bean. Used for providing bean to quartz.
+   *
+   * @return a SpringBeanJobFactory bean
+   */
   @Bean
   public SpringBeanJobFactory springBeanJobFactory() {
-    AutoWiringSpringBeanJobFactory jobFactory = new AutoWiringSpringBeanJobFactory();
+    final AutoWiringSpringBeanJobFactory jobFactory = new AutoWiringSpringBeanJobFactory();
     logger.debug("Configuring Job factory");
     jobFactory.setApplicationContext(this.applicationContext);
     return jobFactory;
   }
 
-  @Bean
-  public JobRegistryBeanPostProcessor jobRegistryBeanPostProcessor(final JobRegistry jobRegistry) {
-    JobRegistryBeanPostProcessor jobRegistryBeanPostProcessor = new JobRegistryBeanPostProcessor();
-    jobRegistryBeanPostProcessor.setJobRegistry(jobRegistry);
-    return jobRegistryBeanPostProcessor;
-  }
-
+  /**
+   * IndexingJobDetail bean.
+   *
+   * @return an IndexingJobDetail bean
+   */
   @Bean
   public JobDetail indexingJobDetail() {
     final JobDataMap jobDataMap = new JobDataMap();
@@ -76,23 +77,33 @@ public class QuartzConfig {
         .build();
   }
 
+  /**
+   * IndexJobTrigger bean which uses indexingJobDetail.
+   *
+   * @return a IndexJobTrigger bean
+   */
   @Bean
-  public Trigger itemJobTrigger() {
+  public Trigger indexJobTrigger() {
     final SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
         .withIntervalInSeconds(300)
         .repeatForever();
     return TriggerBuilder.newTrigger()
         .forJob(indexingJobDetail())
-        .withIdentity("itemJobDetailTrigger")
+        .withIdentity("indexJobTrigger")
         .withSchedule(scheduleBuilder)
         .build();
   }
 
+  /**
+   * SchedulerFactoryBean instance providing quartz bean to the spring.
+   *
+   * @return a SchedulerFactoryBean instance
+   */
   @Bean
   public SchedulerFactoryBean schedulerFactoryBean() {
-    SchedulerFactoryBean factory = new SchedulerFactoryBean();
+    final SchedulerFactoryBean factory = new SchedulerFactoryBean();
     factory.setJobFactory(springBeanJobFactory());
-    factory.setTriggers(itemJobTrigger());
+    factory.setTriggers(indexJobTrigger());
     factory.setJobDetails(indexingJobDetail());
     return factory;
   }
